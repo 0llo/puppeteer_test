@@ -22,7 +22,7 @@ cron.schedule("20 * * * * *", async () => {
   const { html } = await ssr(`https://www3.nhk.or.jp/news/easy/`);
   const $ = cheerio.load(html);
   const targetLink = $(".news-list-item__image");
-  console.log({ targetLink });
+  console.log({ html });
 });
 
 console.log("---- END index.js ----");
