@@ -14,14 +14,14 @@ router.get("/", function (req, res, next) {
 
 console.log("---- index.js ----");
 
-cron.schedule("20 * * * * *", async () => {
+cron.schedule("20,50 * * * * *", async () => {
   console.log(
     `---- cron test - a ${dayjs().format("YYYY/MM/DD HH:mm ss[sec]")} ----`
   );
 
   const { html } = await ssr(`https://www3.nhk.or.jp/news/easy/`);
-  const $ = cheerio.load(html);
-  const targetLink = $(".news-list-item__image");
+  //const $ = cheerio.load(html);
+  //const targetLink = $(".news-list-item__image");
   console.log({ html });
 });
 
