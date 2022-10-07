@@ -21,9 +21,7 @@ function delay(time) {
 }
 
 cron.schedule("20 */2 * * * *", async () => {
-  console.log(
-    `---- cron test - a ${dayjs().format("YYYY/MM/DD HH:mm ss[sec]")} ----`
-  );
+  console.log(`---- cron ${dayjs().format("YYYY/MM/DD HH:mm ss[sec]")} ----`);
 
   const sourceUrl = `https://www3.nhk.or.jp/news/easy/`;
 
@@ -43,6 +41,7 @@ cron.schedule("20 */2 * * * *", async () => {
   const discordChannelUrl =
     "https://discord.com/channels/930973375147434005/939482968051822653";
 
+  console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
   await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
 
   // const token = "...";
