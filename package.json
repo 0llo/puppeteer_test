@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "yarn",
-    "postbuild": "node ./node_modules/puppeteer/install.js"
+    "build": "yarn && node ./node_modules/puppeteer/install.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
