@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 async function ssr(url, selector) {
   console.info(`rendering the page in ssr mode : ${url}`);
   const browser = await puppeteer.launch();
-  // console.log("launched!");
+  console.log("puppeteer launched!");
   // if it's not launched, you hace to do "node node_modules/puppeteer/install.js"
   const page = await browser.newPage();
   try {
