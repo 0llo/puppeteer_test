@@ -30,11 +30,12 @@ cron.schedule("20 */2 * * * *", async () => {
   const $ = cheerio.load(pageData.html);
   const targetPath = $(".news-list-item__image").find("a").attr("href");
   const targetLink = sourceUrl + targetPath.substring(2);
-  console.log({ targetLink });
+  console.log("nhkLink", targetLink);
 
   // -------- discord login
 
-  const browser = await puppeteer.launch({ headless: false });
+  console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const discordServerUrl =
     "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
