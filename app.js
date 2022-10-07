@@ -9,8 +9,23 @@ var usersRouter = require("./routes/users");
 
 var app = express();
 
+require("dotenv").config();
+// console.log(process.env);
+
 // view engine setup
 console.log("init app.js");
+
+// const puppeteer = require("puppeteer");
+
+// (async () => {
+//   const browser = await puppeteer.launch();
+//   const page = await browser.newPage();
+//   await page.goto("https://example.com");
+//   await page.screenshot({ path: "example.png" });
+
+//   await browser.close();
+// })();
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
