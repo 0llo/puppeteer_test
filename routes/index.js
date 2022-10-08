@@ -3,7 +3,9 @@ var router = express.Router();
 const dayjs = require("dayjs");
 const cron = require("node-cron");
 const cheerio = require("cheerio");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
 const ssr = require("./../ssr.js");
 
@@ -39,7 +41,7 @@ cron.schedule("20 */2 * * * *", async () => {
   // -------- discord login
 
   console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   const discordServerUrl =
     "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
@@ -47,8 +49,8 @@ cron.schedule("20 */2 * * * *", async () => {
     "https://discord.com/channels/930973375147434005/939482968051822653";
 
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
-  await page.goto(discordServerUrl, { waitUntil: "networkidle1" });
-  await delay(2000);
+  await page.goto(discordServerUrl);
+  await delay(4000);
   pageTitle = await page.title();
   console.log({ pageTitle });
 
@@ -66,8 +68,8 @@ cron.schedule("20 */2 * * * *", async () => {
   // }, token);
   //await page.click('button[type="button"]:nth-of-type(2)');
   console.log("process.env.em - 3", process.env.DISCORD_EMAIL);
-  await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 50 });
-  await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 50 });
+  await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 20 });
+  await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 20 });
   //await page.click('#app-mount button[class^="sizeLarge"]');
   await page.click("#app-mount button:nth-of-type(2)");
   console.log("process.env.em - 4", process.env.DISCORD_EMAIL);
@@ -95,7 +97,7 @@ cron.schedule("20 */2 * * * *", async () => {
   //await page.goto(discordChannelUrl, { waitUntil: "networkidle2" });
   //await page.waitForSelector(discordCommentInputSelector);
   await delay(4000);
-  await page.type(discordCommentInputSelector, "/bump", { delay: 50 });
+  await page.type(discordCommentInputSelector, "test", { delay: 20 });
   await delay(1000);
   await page.keyboard.press("Enter");
   await delay(1000);
