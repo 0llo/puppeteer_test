@@ -51,8 +51,8 @@ cron.schedule("20 */2 * * * *", async () => {
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await delay(100);
   console.log("-- START page.goto(discordServerUrl)");
-  await page.goto(discordServerUrl);
-  await delay(4000);
+  page.goto(discordServerUrl);
+  await delay(6000);
   pageTitle = await page.title();
   console.log({ pageTitle });
 
