@@ -96,17 +96,17 @@ cron.schedule("20 */2 * * * *", async () => {
 
   //await page.waitForSelector(discordChannelSelector);
   console.log("test1");
-  await page.click(discordChannelSelector);
+  page.click(discordChannelSelector);
   console.log("test2");
 
   //await page.goto(discordChannelUrl, { waitUntil: "networkidle2" });
   //await page.waitForSelector(discordCommentInputSelector);
   await delay(4000);
-  await page.type(discordCommentInputSelector, "test", { delay: 20 });
+  page.type(discordCommentInputSelector, "test", { delay: 20 });
   await delay(1000);
-  await page.keyboard.press("Enter");
+  page.keyboard.press("Enter");
   await delay(1000);
-  await page.keyboard.press("Enter");
+  page.keyboard.press("Enter");
 
   await browser.close();
 
