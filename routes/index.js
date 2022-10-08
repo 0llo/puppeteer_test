@@ -43,6 +43,7 @@ cron.schedule("20 */2 * * * *", async () => {
   console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(10000);
   const discordServerUrl =
     "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
   const discordChannelUrl =
@@ -51,7 +52,7 @@ cron.schedule("20 */2 * * * *", async () => {
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await delay(100);
   console.log("-- START page.goto(discordServerUrl)");
-  page.goto(discordServerUrl);
+  await page.goto(discordServerUrl, { waitUntil: "Load" });
   await delay(8000);
   pageTitle = await page.title();
   console.log({ pageTitle });
