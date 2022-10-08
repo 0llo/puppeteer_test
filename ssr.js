@@ -6,8 +6,11 @@ async function ssr(url, selector) {
   console.log("puppeteer launched!");
   // if it's not launched, you hace to do "node node_modules/puppeteer/install.js"
   const page = await browser.newPage();
+
   try {
     await page.goto(url, { waitUntil: "networkidle2" });
+    const pageTitle = await page.title();
+    console.log({ pageTitle });
     if (selector) {
       console.log(`awaiting for selector : ${selector}`);
       await page.waitForSelector(selector);
