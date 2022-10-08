@@ -95,9 +95,9 @@ cron.schedule("20 */2 * * * *", async () => {
   //await page.waitForSelector(discordCommentInputSelector);
   await delay(4000);
   await page.type(discordCommentInputSelector, "/bump", { delay: 50 });
-  await delay(2000);
+  await delay(1000);
   await page.keyboard.press("Enter");
-  await delay(2000);
+  await delay(1000);
   await page.keyboard.press("Enter");
 
   await browser.close();
