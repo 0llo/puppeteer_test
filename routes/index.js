@@ -27,6 +27,8 @@ cron.schedule("20 */2 * * * *", async () => {
 
   const sourceUrl = `https://www3.nhk.or.jp/news/easy/`;
 
+  let pageTitle = "nothing";
+
   const { pageData } = await ssr(sourceUrl);
   //  const pageData = await ssr(`https://www.google.ca/`);
   let $ = cheerio.load(pageData.html);
@@ -46,6 +48,8 @@ cron.schedule("20 */2 * * * *", async () => {
 
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
+  pageTitle = await page.title();
+  console.log({ pageTitle });
 
   const discordChannelSelector =
     "#channels > ul > li:nth-of-type(3) > div > div > a";
@@ -53,17 +57,6 @@ cron.schedule("20 */2 * * * *", async () => {
   //("#channels > ul > li.containerDefault-YUSmu3.selected-2TbFuo > div > div > a");
   const discordCommentInputSelector =
     "#app-mount main>form>div>div>div div:nth-of-type(3) > div div:nth-of-type(2) ";
-
-  const pageData2 = await page.evaluate(() => {
-    return {
-      html: document.documentElement.innerHTML,
-    };
-  });
-  $ = cheerio.load(pageData2.html);
-  console.log(
-    "discordChannelSelector",
-    $(discordChannelSelector).find("a").attr("href")
-  );
 
   // const token = "...";
   // await page.evaluate((_token) => {
@@ -77,9 +70,23 @@ cron.schedule("20 */2 * * * *", async () => {
   //await page.click('#app-mount button[class^="sizeLarge"]');
   await page.click("#app-mount button:nth-of-type(2)");
   console.log("process.env.em - 4", process.env.DISCORD_EMAIL);
+  await delay(4000);
+
+  pageTitle = await page.title();
+  console.log({ pageTitle });
+
+  const pageData2 = await page.evaluate(() => {
+    return {
+      html: document.documentElement.innerHTML,
+    };
+  });
+  $ = cheerio.load(pageData2.html);
+  console.log(
+    "discordChannelSelector",
+    $(discordChannelSelector).find("a").attr("href")
+  );
 
   //await page.waitForSelector(discordChannelSelector);
-  await delay(4000);
   console.log("test1");
   await page.click(discordChannelSelector);
   console.log("test2");
