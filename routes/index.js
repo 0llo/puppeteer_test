@@ -21,7 +21,9 @@ function delay(time) {
 }
 
 cron.schedule("20 */2 * * * *", async () => {
-  console.log(`---- cron ${dayjs().format("YYYY/MM/DD HH:mm ss[sec]")} ----`);
+  console.log(
+    `-------- cron ${dayjs().format("YYYY/MM/DD HH:mm ss[sec]")} --------`
+  );
 
   const sourceUrl = `https://www3.nhk.or.jp/news/easy/`;
 
@@ -42,7 +44,7 @@ cron.schedule("20 */2 * * * *", async () => {
   const discordChannelUrl =
     "https://discord.com/channels/930973375147434005/939482968051822653";
 
-  console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
+  console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
 
   // const token = "...";
@@ -51,11 +53,12 @@ cron.schedule("20 */2 * * * *", async () => {
   //   // pass the token as additional argument after the callback function
   // }, token);
   //await page.click('button[type="button"]:nth-of-type(2)');
-  console.log("process.env.em", process.env.DISCORD_EMAIL);
+  console.log("process.env.em - 3", process.env.DISCORD_EMAIL);
   await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 50 });
   await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 50 });
   //await page.click('#app-mount button[class^="sizeLarge"]');
   await page.click("#app-mount button:nth-of-type(2)");
+  console.log("process.env.em - 4", process.env.DISCORD_EMAIL);
 
   const discordChannelSelector =
     "#channels > ul > li:nth-of-type(3) > div > div > a";
