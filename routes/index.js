@@ -47,7 +47,8 @@ cron.schedule("20 */2 * * * *", async () => {
     "https://discord.com/channels/930973375147434005/939482968051822653";
 
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
-  await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
+  await page.goto(discordServerUrl, { waitUntil: "networkidle1" });
+  await delay(2000);
   pageTitle = await page.title();
   console.log({ pageTitle });
 
