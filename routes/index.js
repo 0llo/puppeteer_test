@@ -52,7 +52,7 @@ cron.schedule("20 */2 * * * *", async () => {
   await delay(100);
   console.log("-- START page.goto(discordServerUrl)");
   page.goto(discordServerUrl);
-  await delay(6000);
+  await delay(8000);
   pageTitle = await page.title();
   console.log({ pageTitle });
 
@@ -70,10 +70,13 @@ cron.schedule("20 */2 * * * *", async () => {
   // }, token);
   //await page.click('button[type="button"]:nth-of-type(2)');
   console.log("process.env.em - 3", process.env.DISCORD_EMAIL);
-  await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 20 });
-  await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 20 });
+  await delay(1000);
+  page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 100 });
+  await delay(2000);
+  page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 100 });
+  await delay(4000);
   //await page.click('#app-mount button[class^="sizeLarge"]');
-  await page.click("#app-mount button:nth-of-type(2)");
+  page.click("#app-mount button:nth-of-type(2)");
   console.log("process.env.em - 4", process.env.DISCORD_EMAIL);
   await delay(4000);
 
