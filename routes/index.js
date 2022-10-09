@@ -51,10 +51,15 @@ cron.schedule("20 */2 * * * *", async () => {
 
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await delay(100);
-  console.log("-- START page.goto(https://discord.com/)");
-  await page.goto("https://discord.com/", {
-    timeout: 1000,
-  });
+  console.log(
+    "-- START page.goto(https://www3.nhk.or.jp/news/easy/k10013850681000/k10013850681000.html)"
+  );
+  await page.goto(
+    "https://www3.nhk.or.jp/news/easy/k10013850681000/k10013850681000.html",
+    {
+      timeout: 1000,
+    }
+  );
   await delay(4000);
   pageTitle = await page.title();
   console.log({ pageTitle });
