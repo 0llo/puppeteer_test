@@ -41,7 +41,7 @@ cron.schedule("20 */2 * * * *", async () => {
   // -------- discord login
 
   console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(1000);
   const discordServerUrl =
@@ -51,15 +51,8 @@ cron.schedule("20 */2 * * * *", async () => {
 
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await delay(100);
-  console.log(
-    "-- START page.goto(https://www3.nhk.or.jp/news/easy/k10013850681000/k10013850681000.html)"
-  );
-  await page.goto(
-    "https://www3.nhk.or.jp/news/easy/k10013850681000/k10013850681000.html",
-    {
-      timeout: 1000,
-    }
-  );
+  console.log("-- START page.goto(sourceUrl)");
+  await page.goto(sourceUrl, { waitUntil: "networkidle2" });
   await delay(4000);
   pageTitle = await page.title();
   console.log({ pageTitle });
