@@ -52,7 +52,7 @@ cron.schedule("20 */2 * * * *", async () => {
   console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
   await delay(100);
   console.log("-- START page.goto(discordServerUrl)");
-  await page.goto(discordServerUrl, {
+  await page.goto(discordChannelUrl, {
     timeout: 1000,
   });
   await delay(4000);
