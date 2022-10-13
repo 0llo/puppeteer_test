@@ -13,7 +13,7 @@ async function discordExec() {
   // if it's not launched, you hace to do "node node_modules/puppeteer/install.js"
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(0);
-  await page.setDefaultTimeout(0);
+  await page.setDefaultTimeout(20000);
 
   const discordServerUrl =
     "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
@@ -41,6 +41,8 @@ async function discordExec() {
   try {
     await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 100 });
     await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 100 });
+    await page.screenshot({ path: "public/images/step1.png" });
+    console.log("screenshot step1.png");
   } catch (err) {
     console.error(err);
     throw new Error(`cannot type values or cannot find the selector`);
@@ -49,7 +51,7 @@ async function discordExec() {
 
   try {
     await page.click("#app-mount button:nth-of-type(2)");
-    await delay(8000);
+    await delay(2000);
     pageTitle = await page.title();
     console.log({ step: "step2", pageTitle });
   } catch (err) {
@@ -64,7 +66,7 @@ async function discordExec() {
       };
     });
     $ = cheerio.load(pageData2.html);
-    console.log("#channels", $("#channels").find("a"));
+    //console.log("#channels", $("#channels").find("a"));
   } catch (err) {
     console.error(err);
     throw new Error(`cannot evaluate the page(step2) to exploit channel URL`);
@@ -72,7 +74,10 @@ async function discordExec() {
 
   try {
     //await page.waitForNavigation();
-    await page.waitForSelector(discordChannelSelector);
+    await delay(2000);
+    await page.screenshot({ path: "public/images/step2.png" });
+    console.log("screenshot step2.png");
+    //await page.waitForSelector(discordChannelSelector);
     console.log("test1");
     await page.click(discordChannelSelector);
     console.log("test2");
@@ -88,9 +93,12 @@ async function discordExec() {
     console.error(err);
     throw new Error(`cannot find the input Dom in the channel`);
   }
-  await page.type(discordCommentInputSelector, "/dice6", { delay: 100 });
+  await page.type(discordCommentInputSelector, "aiueo", { delay: 100 });
   await page.keyboard.press("Enter");
   await page.keyboard.press("Enter");
+
+  await page.screenshot({ path: "public/images/step3.png" });
+  console.log("screenshot step3.png");
 
   await browser.close();
 
