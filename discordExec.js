@@ -6,6 +6,7 @@ async function discordExec() {
   console.log("puppeteer launched! - discordExec");
   // if it's not launched, you hace to do "node node_modules/puppeteer/install.js"
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
 
   const discordServerUrl =
     "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
@@ -20,7 +21,9 @@ async function discordExec() {
     "#app-mount main>form>div>div>div div:nth-of-type(3) > div div:nth-of-type(2) ";
 
   try {
-    await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
+    console.log("goto discordServer");
+    //await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
+    await page.goto(discordServerUrl);
     const pageTitle = await page.title();
     console.log({ step: "step1", pageTitle });
   } catch (err) {
