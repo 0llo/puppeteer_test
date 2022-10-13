@@ -52,6 +52,7 @@ async function discordExec() {
   try {
     await page.click("#app-mount button:nth-of-type(2)");
     await delay(2000);
+    await page.waitForNavigation();
     pageTitle = await page.title();
     console.log({ step: "step2", pageTitle });
   } catch (err) {
