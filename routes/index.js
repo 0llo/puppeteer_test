@@ -8,6 +8,7 @@ const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
 
 const ssr = require("./../ssr.js");
+const discordExec = require("./../discordExec.js");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -31,6 +32,7 @@ cron.schedule("20 */2 * * * *", async () => {
 
   let pageTitle = "nothing";
 
+  const { pageData3 } = await discordExec();
   const { pageData } = await ssr(sourceUrl);
   //  const pageData = await ssr(`https://www.google.ca/`);
   let $ = cheerio.load(pageData.html);
@@ -40,87 +42,7 @@ cron.schedule("20 */2 * * * *", async () => {
 
   // -------- discord login
 
-  console.log("process.env.em - 1", process.env.DISCORD_EMAIL);
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setDefaultNavigationTimeout(20000);
-  const discordServerUrl =
-    "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
-  const discordChannelUrl =
-    "https://discord.com/channels/930973375147434005/939482968051822653";
-
-  console.log("process.env.em - 2", process.env.DISCORD_EMAIL);
-  console.log("-- START page.goto(sourceUrl)");
-  try {
-    await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
-    pageTitle = await page.title();
-    console.log({ pageTitle });
-  } catch (err) {
-    console.error(err);
-    throw new Error(`page.goto`);
-  }
-  //await delay(4000);
-
-  const discordChannelSelector =
-    "#channels > ul > li:nth-of-type(3) > div > div > a";
-  //const discordChannelSelector =
-  //("#channels > ul > li.containerDefault-YUSmu3.selected-2TbFuo > div > div > a");
-  const discordCommentInputSelector =
-    "#app-mount main>form>div>div>div div:nth-of-type(3) > div div:nth-of-type(2) ";
-
-  // const token = "...";
-  // await page.evaluate((_token) => {
-  //   localStorage.setItem("token", _token);
-  //   // pass the token as additional argument after the callback function
-  // }, token);
-  //await page.click('button[type="button"]:nth-of-type(2)');
-  console.log("process.env.em - 3", process.env.DISCORD_EMAIL);
-  try {
-    await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 100 });
-    await delay(2000);
-    await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 100 });
-  } catch (err) {
-    console.error(err);
-    throw new Error(`cannot type values or cannot find the selector`);
-  }
-  //await page.click('#app-mount button[class^="sizeLarge"]');
-  await page.click("#app-mount button:nth-of-type(2)");
-  console.log("process.env.em - 4", process.env.DISCORD_EMAIL);
-  await delay(4000);
-
-  pageTitle = await page.title();
-  console.log({ pageTitle });
-
-  const pageData2 = await page.evaluate(() => {
-    return {
-      html: document.documentElement.innerHTML,
-    };
-  });
-  $ = cheerio.load(pageData2.html);
-  console.log(
-    "discordChannelSelector",
-    $(discordChannelSelector).find("a").attr("href")
-  );
-
-  //await page.waitForSelector(discordChannelSelector);
-  console.log("test1");
-  await page.click(discordChannelSelector);
-  console.log("test2");
-
-  //await page.goto(discordChannelUrl, { waitUntil: "networkidle2" });
-  //await page.waitForSelector(discordCommentInputSelector);
-  await delay(4000);
-  await page.type(discordCommentInputSelector, "test", { delay: 100 });
-  await delay(1000);
-  await page.keyboard.press("Enter");
-  await delay(1000);
-  await page.keyboard.press("Enter");
-
-  await browser.close();
-
-  console.log("puppeteer done");
-
-  //await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
+  console.log("-- END cron --");
 });
 
 console.log("---- END index.js ----");
