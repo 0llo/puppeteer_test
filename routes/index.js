@@ -3,9 +3,6 @@ var router = express.Router();
 const dayjs = require("dayjs");
 const cron = require("node-cron");
 const cheerio = require("cheerio");
-const puppeteer = require("puppeteer-extra");
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-puppeteer.use(StealthPlugin());
 
 const ssr = require("./../ssr.js");
 const discordExec = require("./../discordExec.js");
