@@ -29,7 +29,7 @@ async function discordExec() {
 
   try {
     console.log("goto discordServer");
-    await page.goto(discordServerUrl, { waitUntil: "networkidle2" });
+    await page.goto(discordServerUrl);
     //await page.goto(discordServerUrl);
     const pageTitle = await page.title();
     console.log({ step: "step1", pageTitle });
