@@ -12,8 +12,8 @@ async function discordExec() {
   console.log("puppeteer launched! - discordExec");
   // if it's not launched, you hace to do "node node_modules/puppeteer/install.js"
   const page = await browser.newPage();
-  await page.setDefaultNavigationTimeout(80000);
-  await page.setDefaultTimeout(80000);
+  await page.setDefaultNavigationTimeout(100000);
+  await page.setDefaultTimeout(100000);
 
   const discordServerUrl =
     "https://discord.com/login?redirect_to=%2Fchannels%2F930973375147434005%2F931455420210511903";
@@ -44,8 +44,8 @@ async function discordExec() {
     await page.waitForSelector("#app-mount button:nth-of-type(2)");
     await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 0 });
     await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 0 });
-    await page.screenshot({ path: "public/images/step1.png" });
-    console.log("screenshot step1.png");
+    //await page.screenshot({ path: "public/images/step1.png" });
+    //console.log("screenshot step1.png");
   } catch (err) {
     console.error(err);
     throw new Error(`cannot type values or cannot find the selector`);
@@ -58,7 +58,7 @@ async function discordExec() {
     //await page.waitForNavigation();
     await page.waitForSelector(discordChannelSelector);
     const pageTitle = await page.title();
-    console.log({ step: "step2", pageTitle });
+    //console.log({ step: "step2", pageTitle });
     console.log({ pageUrl: await page.url() });
   } catch (err) {
     console.error(err);
@@ -101,8 +101,8 @@ async function discordExec() {
   await page.keyboard.press("Enter");
   await page.keyboard.press("Enter");
 
-  await page.screenshot({ path: "public/images/step3.png" });
-  console.log("screenshot step3.png");
+  //await page.screenshot({ path: "public/images/step3.png" });
+  //console.log("screenshot step3.png");
 
   await browser.close();
 
