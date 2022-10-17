@@ -56,7 +56,10 @@ async function discordExec() {
     await page.click("#app-mount button:nth-of-type(2)");
     //await delay(8000);
     //await page.waitForNavigation();
-    await page.waitForSelector(discordChannelSelector);
+    await page.waitForSelector(discordChannelSelector, {
+      timeout: 30000,
+      visible: true,
+    });
     const pageTitle = await page.title();
     //console.log({ step: "step2", pageTitle });
     console.log({ pageUrl: await page.url() });
