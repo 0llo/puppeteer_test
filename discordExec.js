@@ -57,7 +57,7 @@ async function discordExec() {
     //await delay(8000);
     //await page.waitForNavigation();
     await page.waitForSelector(discordChannelSelector, {
-      timeout: 30000,
+      timeout: 300000,
       visible: true,
     });
     const pageTitle = await page.title();
