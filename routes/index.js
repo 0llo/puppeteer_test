@@ -14,7 +14,8 @@ router.get("/", function (req, res, next) {
 
 console.log("---- index.js ----");
 
-cron.schedule("20 */6 * * * *", async () => {
+cron.schedule("20 */30 * * * *", async () => {
+  //cron.schedule("20 */6 * * * *", async () => {
   console.log(
     `-------- cron ${dayjs().format("YYYY/MM/DD HH:mm ss[sec]")} --------`
   );

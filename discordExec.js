@@ -42,8 +42,8 @@ async function discordExec() {
     console.log("email", process.env.DISCORD_EMAIL);
     await page.waitForSelector("#uid_8");
     await page.waitForSelector("#app-mount button:nth-of-type(2)");
-    await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 0 });
-    await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 0 });
+    await page.type("#uid_5", process.env.DISCORD_EMAIL, { delay: 200 });
+    await page.type("#uid_8", process.env.DISCORD_PASSWORD, { delay: 200 });
     //await page.screenshot({ path: "public/images/step1.png" });
     //console.log("screenshot step1.png");
   } catch (err) {
@@ -100,12 +100,13 @@ async function discordExec() {
     console.error(err);
     throw new Error(`cannot find the input DOM in the channel`);
   }
-  await page.type(discordCommentInputSelector, "aiueo", { delay: 100 });
+  await page.type(discordCommentInputSelector, "/bump", { delay: 100 });
   await page.keyboard.press("Enter");
   await page.keyboard.press("Enter");
+  await delay(2000);
 
-  //await page.screenshot({ path: "public/images/step3.png" });
-  //console.log("screenshot step3.png");
+  await page.screenshot({ path: "public/images/step3.png" });
+  console.log("screenshot step3.png");
 
   await browser.close();
 
